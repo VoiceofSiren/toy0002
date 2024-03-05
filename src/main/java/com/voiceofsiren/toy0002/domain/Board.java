@@ -1,5 +1,6 @@
 package com.voiceofsiren.toy0002.domain;
 
+import com.voiceofsiren.toy0002.dto.BoardDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,4 +18,13 @@ public class Board {
     private Long id;
     private String title;
     private String content;
+
+    public Board() {
+
+    }
+
+    public Board(BoardDTO boardDTO) {
+        this.title = boardDTO.getTitle();
+        this.content = boardDTO.getTitle();
+    }
 }

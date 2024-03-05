@@ -22,10 +22,15 @@ public class BoardService {
         List<Board> boards = boardRepository.findAll();
         return convert(boards);
     }
+    @Transactional(readOnly = false)
+    public void save(BoardDTO boardDTO) {
+        boardRepository.save(new Board(boardDTO));
+    }
 
     public List<BoardDTO> convert(List<Board> boards) {
         return boards.stream()
                 .map(board -> new BoardDTO(board))
                 .collect(Collectors.toList());
     }
+
 }
