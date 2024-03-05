@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common :: head('게시판')">
+<head th:replace="~{fragments/common :: head('게시판')}">
     <title>Toy0002</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +10,31 @@
     <link href="css/navbar-top-fixed.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/common :: menu('board')">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="~{fragments/common :: menu('board')}">
 </nav>
 
 
 <div class="container">
     <h2>게시판</h2>
-    <form method="post" th:action="@{/board/form}" action="#" th:object="${board}">
+    <form method="post" th:action="@{/board/form}" action="#" th:object="${boardDTO}"
+          class="row g-3 needs-validation">
+        <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" placeholder="제목 입력" th:field="*{title}">
+            <input type="text" class="form-control" id="title" placeholder="제목 입력"
+                   th:field="*{title}" th:classappend="${#fields.hasErrors('title')}? 'is-invalid'">
+            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback">
+                title 필드 에러
+            </div>
+
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" id="content" rows="3" th:field="*{content}"></textarea>
+            <textarea class="form-control" id="content" rows="10"
+                      th:field="*{content}" th:classappend="${#fields.hasErrors('content')}? 'is-invalid'"></textarea>
+            <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="invalid-feedback">
+                content 필드 에러
+            </div>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a type="button" class="btn btn-primary" th:href="@{/board/list}">취소하기</a>

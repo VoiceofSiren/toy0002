@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +26,16 @@ public class BoardService {
     @Transactional(readOnly = false)
     public void save(BoardDTO boardDTO) {
         boardRepository.save(new Board(boardDTO));
+    }
+
+    @Transactional(readOnly = true)
+    public BoardDTO findById(Long id) {
+        Optional<Board> optionalBoard = boardRepository.findById(id);
+        if (!optionalBoard.isPresent()) {
+            throw new IllegalStateException("해당 게시글이 존재하지 않습니다.");
+        }
+        Board board =  optionalBoard.orElse(new Board(new BoardDTO(0L, "제목 없음", "내용 없음")));
+        return new BoardDTO(board);
     }
 
     public List<BoardDTO> convert(List<Board> boards) {

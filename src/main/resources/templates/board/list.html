@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/common :: head('게시판')">
+<head th:replace="~{fragments/common :: head('게시판')}">
     <title>Toy0002</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
     <link href="css/navbar-top-fixed.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/common :: menu('board')">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="~{fragments/common :: menu('board')}">
 </nav>
 
 
@@ -28,9 +28,9 @@
         </thead>
         <tbody>
         <tr th:each="board: ${boards}">
-            <th scope="row" th:text="${board.getId()}">1</th>
-            <td th:text="${board.getTitle()}">Mark</td>
-            <td>홍길동</td>
+            <th scope="row" th:text="${board.getId()}"><a>1</a></th>
+            <td><a th:text="${board.getTitle()}" th:href="@{/board/form(id=${board.getId()})}">제목1</a></td>
+            <td>작성자1</td>
         </tr>
         </tbody>
     </table>
