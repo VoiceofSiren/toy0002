@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/common :: head('Home')">
     <title>Toy0002</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
     <link href="css/navbar-top-fixed.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/common :: menu">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/common :: menu('home')">
 </nav>
 
 <main class="container">
