@@ -22,7 +22,7 @@ class BoardApiController {
     List<BoardDTO> all(@RequestParam(required = false) String title,
                        @RequestParam(required = false) String content) {
         if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
-            return boardService.findAll();
+            // return boardService.findAll();
         } else if (!StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
             return boardService.findByTitle(title);
         } else if (StringUtils.isEmpty(title) && !StringUtils.isEmpty(content)) {
@@ -30,6 +30,7 @@ class BoardApiController {
         } else {
             return boardService.findByTitleOrContent(title, content);
         }
+        return boardService.findByTitleOrContent(title, content);
     }
     // end::get-aggregate-root[]
 

@@ -5,6 +5,9 @@ import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.exception.BoardNotFoundException;
 import com.voiceofsiren.toy0002.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +23,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional(readOnly = true)
-    public List<BoardDTO> findAll() {
-        List<Board> boards = boardRepository.findAll();
+    public Page<BoardDTO> findAll(Pageable pageable) {
+        Page<Board> boards = boardRepository.findAll(pageable);
         return convert(boards);
     }
     @Transactional(readOnly = false)
@@ -84,12 +87,20 @@ public class BoardService {
         return convert(boards);
     }
 
+    @Transactional(readOnly = true)
+    public Page<BoardDTO> findByTitleOrContent(String title, String content, Pageable pageable) {
+        Page<Board> boards = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
+        return convert(boards);
+    }
+
     public List<BoardDTO> convert(List<Board> boards) {
         return boards.stream()
                 .map(board -> new BoardDTO(board))
                 .collect(Collectors.toList());
     }
 
-
+    public Page<BoardDTO> convert(Page<Board> boards) {
+        return boards.map(board -> new BoardDTO(board));
+    }
 
 }
