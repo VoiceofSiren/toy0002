@@ -65,12 +65,30 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
+    public List<BoardDTO> findByTitle(String title) {
+        List<Board> boards = boardRepository.findByTitle(title);
+        return convert(boards);
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardDTO> findByContent(String content) {
+        List<Board> boards = boardRepository.findByContent(content);
+        return convert(boards);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardDTO> findByTitleOrContent(String title, String content) {
+        List<Board> boards = boardRepository.findByTitleOrContent(title,content);
+        return convert(boards);
+    }
+
     public List<BoardDTO> convert(List<Board> boards) {
         return boards.stream()
                 .map(board -> new BoardDTO(board))
                 .collect(Collectors.toList());
     }
-
 
 
 

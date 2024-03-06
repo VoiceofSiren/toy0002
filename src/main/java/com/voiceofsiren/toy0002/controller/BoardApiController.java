@@ -4,6 +4,7 @@ import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
@@ -18,8 +19,17 @@ class BoardApiController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/boards")
-    List<BoardDTO> all() {
-        return boardService.findAll();
+    List<BoardDTO> all(@RequestParam(required = false) String title,
+                       @RequestParam(required = false) String content) {
+        if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
+            return boardService.findAll();
+        } else if (!StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
+            return boardService.findByTitle(title);
+        } else if (StringUtils.isEmpty(title) && !StringUtils.isEmpty(content)) {
+            return boardService.findByContent(content);
+        } else {
+            return boardService.findByTitleOrContent(title, content);
+        }
     }
     // end::get-aggregate-root[]
 
