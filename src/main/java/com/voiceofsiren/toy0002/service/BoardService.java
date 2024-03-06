@@ -2,6 +2,7 @@ package com.voiceofsiren.toy0002.service;
 
 import com.voiceofsiren.toy0002.domain.Board;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
+import com.voiceofsiren.toy0002.exception.BoardNotFoundException;
 import com.voiceofsiren.toy0002.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,18 +25,44 @@ public class BoardService {
         return convert(boards);
     }
     @Transactional(readOnly = false)
-    public void save(BoardDTO boardDTO) {
-        boardRepository.save(new Board(boardDTO));
+    public BoardDTO save(BoardDTO boardDTO) {
+        Board board = boardRepository.save(new Board(boardDTO));
+        return new BoardDTO(board);
     }
 
     @Transactional(readOnly = true)
     public BoardDTO findById(Long id) {
         Optional<Board> optionalBoard = boardRepository.findById(id);
         if (!optionalBoard.isPresent()) {
-            throw new IllegalStateException("해당 게시글이 존재하지 않습니다.");
+            throw new BoardNotFoundException(id);
         }
-        Board board =  optionalBoard.orElse(new Board(new BoardDTO(0L, "제목 없음", "내용 없음")));
+        Board board =  optionalBoard.get();
         return new BoardDTO(board);
+    }
+
+    /**
+     * PUT API를 위한 Service 계층의 로직
+     */
+    @Transactional(readOnly = false)
+    public BoardDTO replace(BoardDTO newBoardDTO, Long id) {
+        return boardRepository.findById(id)
+                .map(board -> {
+                    board.setTitle(newBoardDTO.getTitle());
+                    board.setContent(newBoardDTO.getContent());
+                    return new BoardDTO(boardRepository.save(board));
+                })
+                .orElseGet(() -> {
+                    newBoardDTO.setId(id);
+                    return new BoardDTO(boardRepository.save(new Board(newBoardDTO)));
+                });
+    }
+
+    /**
+     * DELETE API를 위한 Service 계층의 로직
+     */
+    @Transactional(readOnly = false)
+    public void deleteById(Long id) {
+        boardRepository.deleteById(id);
     }
 
     public List<BoardDTO> convert(List<Board> boards) {
@@ -43,5 +70,8 @@ public class BoardService {
                 .map(board -> new BoardDTO(board))
                 .collect(Collectors.toList());
     }
+
+
+
 
 }

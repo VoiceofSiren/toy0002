@@ -47,9 +47,8 @@ public class BoardController {
     public String write(@ModelAttribute @Valid BoardDTO boardDTO,
                         BindingResult bindingResult,
                         Model model) {
-        //boardValidator.validate(boardDTO, bindingResult);
+        boardValidator.validate(boardDTO, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("boardDTO", new BoardDTO());
             return "board/form";
         } else {
             boardService.save(boardDTO);
