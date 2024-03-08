@@ -23,7 +23,7 @@ public class User {
 
     private String password;
 
-    private int enabled;
+    private Boolean enabled;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserRole> userRoles = new ArrayList<>();
