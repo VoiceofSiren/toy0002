@@ -27,7 +27,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/css/**").permitAll()
+                        .requestMatchers("/", "/account/register","/css/**", "/css/account/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -49,11 +49,11 @@ public class WebSecurityConfig {
                 .usersByUsernameQuery("select username, password, enabled "
                         + "from user "
                         + "where username = ?")
-                .authoritiesByUsernameQuery("select username, name "
+                .authoritiesByUsernameQuery("select u.username, r.name "
                         + "from user_role ur "
                         + "inner join user u on ur.user_id = u.user_id "
                         + "inner join role r on ur.role_id = r.role_id "
-                        + "where email = ?");
+                        + "where u.username = ?");
     }
 
     @Bean

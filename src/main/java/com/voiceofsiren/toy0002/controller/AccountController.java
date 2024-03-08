@@ -20,9 +20,14 @@ public class AccountController {
         return "account/login";
     }
 
+    @GetMapping("/register")
+    public String registerForm() {
+        return "account/register";
+    }
+
     @PostMapping("/register")
-    public String registerForm(UserDTO userDTO) {
+    public String register(UserDTO userDTO) {
         userService.save(userDTO);
-        return "account/login";
+        return "redirect:/";
     }
 }

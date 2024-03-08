@@ -1,6 +1,6 @@
 package com.voiceofsiren.toy0002.service;
 
-import com.voiceofsiren.toy0002.repository.RoleRepository;
+import com.voiceofsiren.toy0002.repository.RoleJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RoleService {
 
-    private final RoleRepository roleRepository;
+    private final RoleJpaRepository roleRepository;
 
 }

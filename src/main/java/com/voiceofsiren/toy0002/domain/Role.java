@@ -21,4 +21,11 @@ public class Role {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
     private List<UserRole> userRoles = new ArrayList<>();
+
+    //== 연관 관계 메서드 ==//
+    public void addUserRole(UserRole userRole) {
+        this.userRoles.add(userRole);
+        userRole.setRole(this);
+    }
+
 }

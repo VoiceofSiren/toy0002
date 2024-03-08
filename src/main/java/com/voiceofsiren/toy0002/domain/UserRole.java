@@ -25,4 +25,12 @@ public class UserRole {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role role;
+
+    //== 생성 메서드 ==//
+    public static UserRole createUserRole(User user, Role role) {
+        UserRole userRole = new UserRole();
+        userRole.setUser(user);
+        userRole.setRole(role);
+        return userRole;
+    }
 }
