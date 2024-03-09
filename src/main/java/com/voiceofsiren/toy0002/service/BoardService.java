@@ -1,12 +1,16 @@
 package com.voiceofsiren.toy0002.service;
 
 import com.voiceofsiren.toy0002.domain.Board;
+import com.voiceofsiren.toy0002.domain.User;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
+import com.voiceofsiren.toy0002.dto.BoardPageDTO;
+import com.voiceofsiren.toy0002.dto.UserDTO;
 import com.voiceofsiren.toy0002.exception.BoardNotFoundException;
+import com.voiceofsiren.toy0002.repository.BoardJpaRepository;
 import com.voiceofsiren.toy0002.repository.BoardRepository;
+import com.voiceofsiren.toy0002.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,21 +25,34 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final BoardJpaRepository boardJpaRepository;
+
+    private final UserJpaRepository userJpaRepository;
 
     @Transactional(readOnly = true)
     public Page<BoardDTO> findAll(Pageable pageable) {
-        Page<Board> boards = boardRepository.findAll(pageable);
+        Page<Board> boards = boardJpaRepository.findAll(pageable);
         return convert(boards);
     }
+
     @Transactional(readOnly = false)
     public BoardDTO save(BoardDTO boardDTO) {
-        Board board = boardRepository.save(new Board(boardDTO));
+        Board board = boardJpaRepository.save(new Board(boardDTO));
+        return new BoardDTO(board);
+    }
+
+    @Transactional(readOnly = false)
+    public BoardDTO save(BoardDTO boardDTO, User user) {
+        User foundUser = userJpaRepository.findByUsername(user.getUsername());
+        Board newBoard = new Board(boardDTO);
+        newBoard.setUser(foundUser);
+        Board board = boardJpaRepository.save(newBoard);
         return new BoardDTO(board);
     }
 
     @Transactional(readOnly = true)
     public BoardDTO findById(Long id) {
-        Optional<Board> optionalBoard = boardRepository.findById(id);
+        Optional<Board> optionalBoard = boardJpaRepository.findById(id);
         if (!optionalBoard.isPresent()) {
             throw new BoardNotFoundException(id);
         }
@@ -48,15 +65,15 @@ public class BoardService {
      */
     @Transactional(readOnly = false)
     public BoardDTO replace(BoardDTO newBoardDTO, Long id) {
-        return boardRepository.findById(id)
+        return boardJpaRepository.findById(id)
                 .map(board -> {
                     board.setTitle(newBoardDTO.getTitle());
                     board.setContent(newBoardDTO.getContent());
-                    return new BoardDTO(boardRepository.save(board));
+                    return new BoardDTO(boardJpaRepository.save(board));
                 })
                 .orElseGet(() -> {
                     newBoardDTO.setId(id);
-                    return new BoardDTO(boardRepository.save(new Board(newBoardDTO)));
+                    return new BoardDTO(boardJpaRepository.save(new Board(newBoardDTO)));
                 });
     }
 
@@ -65,32 +82,39 @@ public class BoardService {
      */
     @Transactional(readOnly = false)
     public void deleteById(Long id) {
-        boardRepository.deleteById(id);
+        boardJpaRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
     public List<BoardDTO> findByTitle(String title) {
-        List<Board> boards = boardRepository.findByTitle(title);
+        List<Board> boards = boardJpaRepository.findByTitle(title);
         return convert(boards);
 
     }
 
     @Transactional(readOnly = true)
     public List<BoardDTO> findByContent(String content) {
-        List<Board> boards = boardRepository.findByContent(content);
+        List<Board> boards = boardJpaRepository.findByContent(content);
         return convert(boards);
     }
 
     @Transactional(readOnly = true)
     public List<BoardDTO> findByTitleOrContent(String title, String content) {
-        List<Board> boards = boardRepository.findByTitleOrContent(title,content);
+        List<Board> boards = boardJpaRepository.findByTitleOrContent(title,content);
         return convert(boards);
     }
-
+/*
     @Transactional(readOnly = true)
     public Page<BoardDTO> findByTitleOrContent(String title, String content, Pageable pageable) {
-        Page<Board> boards = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
+        Page<Board> boards = boardJpaRepository.findByTitleContainingOrContentContaining(title, content, pageable);
+        boards.forEach(Board::getUser);
         return convert(boards);
+    }
+*/
+    @Transactional(readOnly = true)
+    public Page<BoardPageDTO> findByTitleOrContent(String title, String content, Pageable pageable) {
+        Page<BoardPageDTO> boards = boardRepository.showBoardPageList(title, content, pageable);
+        return boards;
     }
 
     public List<BoardDTO> convert(List<Board> boards) {

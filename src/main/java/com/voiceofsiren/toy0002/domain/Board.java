@@ -25,6 +25,10 @@ public class Board {
     @NotNull
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Board() {
 
     }
@@ -33,5 +37,7 @@ public class Board {
         this.id = boardDTO.getId();
         this.title = boardDTO.getTitle();
         this.content = boardDTO.getContent();
+        this.user = boardDTO.getUser();
     }
+
 }

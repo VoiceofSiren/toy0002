@@ -1,6 +1,7 @@
 package com.voiceofsiren.toy0002.dto;
 
 import com.voiceofsiren.toy0002.domain.Board;
+import com.voiceofsiren.toy0002.domain.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -18,6 +19,8 @@ public class BoardDTO {
     @Size(min = 1, message = "최소 1글자를 입력해주세요.")
     private String content;
 
+    private User user;
+
     public BoardDTO() {
 
     }
@@ -32,7 +35,13 @@ public class BoardDTO {
         this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
+        this.user = board.getUser();
     }
 
-
+    public BoardDTO(Board board, User user) {
+        this.id = board.getId();
+        this.title = board.getTitle();
+        this.content = board.getContent();
+        this.user = user;
+    }
 }

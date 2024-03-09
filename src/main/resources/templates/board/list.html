@@ -35,7 +35,7 @@
         <tr th:each="board: ${boards}">
             <th scope="row" th:text="${board.getId()}"><a>1</a></th>
             <td><a th:text="${board.getTitle()}" th:href="@{/board/form(id=${board.getId()})}">제목1</a></td>
-            <td>작성자1</td>
+            <td th:text="${board.getUsername()}">작성자1</td>
         </tr>
         </tbody>
     </table>
