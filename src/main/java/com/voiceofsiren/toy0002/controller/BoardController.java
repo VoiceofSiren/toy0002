@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
@@ -55,13 +57,16 @@ public class BoardController {
 
     @PostMapping("/form")
     public String write(@ModelAttribute @Valid BoardDTO boardDTO,
-                        @AuthenticationPrincipal User user,
+                        Principal principal,
                         BindingResult bindingResult) {
         boardValidator.validate(boardDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "board/form";
         } else {
             //boardService.save(boardDTO);
+            //System.out.println("BoardController.write() => username = " + user.getUsername());
+            User user = new User();
+            user.setUsername(principal.getName());
             boardService.save(boardDTO, user);
         }
         return "redirect:/board/list";
