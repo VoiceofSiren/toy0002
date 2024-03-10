@@ -1,5 +1,6 @@
 package com.voiceofsiren.toy0002.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.voiceofsiren.toy0002.domain.Board;
 import com.voiceofsiren.toy0002.domain.User;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public class BoardDTO {
     @Size(min = 1, message = "최소 1글자를 입력해주세요.")
     private String content;
 
+    @JsonIgnore
     private User user;
 
     public BoardDTO() {

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -58,6 +59,16 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<User> findAll() {
         List<User> users = userJpaRepository.findAll();
+        return users;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAllEntities() {
+        List<User> users = userRepository.findAllEntities();
+        for (User user: users) {
+            user.getBoards().stream().forEach(board -> board.getTitle());
+            user.getUserRoles().stream().forEach(userRole -> userRole.getId());
+        }
         return users;
     }
 

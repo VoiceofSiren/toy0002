@@ -44,9 +44,10 @@ class UserApiController {
 
     @GetMapping("/v2/users")
     public List<UserDTOv2> allV2() {
-        return userRepository.findAllEntities().stream()
+        List<UserDTOv2> usersV2 = userService.findAllEntities().stream()
                 .map(user -> new UserDTOv2(user))
                 .collect(Collectors.toList());
+        return usersV2;
     }
 
     @Data
@@ -55,13 +56,9 @@ class UserApiController {
 
         @NotNull
         private String username;
-
         private String password;
-
         private Boolean enabled;
-
         private List<UserRoleDTO> userRoleDTOS = new ArrayList<>();
-
         private List<BoardDTO> boards = new ArrayList<>();
 
         public UserDTOv2(User user) {
@@ -69,14 +66,14 @@ class UserApiController {
             this.username = user.getUsername();
             this.password = user.getPassword();
             this.enabled = user.getEnabled();
-            /*
+
             this.userRoleDTOS = user.getUserRoles().stream()
                     .map(userRole -> new UserRoleDTO(userRole))
                     .collect(Collectors.toList());
             this.boards = user.getBoards().stream()
                     .map(board -> new BoardDTO(board))
                     .collect(Collectors.toList());
-             */
+
         }
     }
 
