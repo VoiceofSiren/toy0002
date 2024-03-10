@@ -10,6 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -49,5 +53,16 @@ public class UserService {
         user.setPassword(userDTO.getPassword());
         user.setEnabled(userDTO.getEnabled());
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        List<User> users = userJpaRepository.findAll();
+        return users;
+    }
+
+    public UserDTO findById(Long id) {
+        Optional<User> optionalUser = userJpaRepository.findById(id);
+        return optionalUser.map(user -> new UserDTO(user)).get();
     }
 }

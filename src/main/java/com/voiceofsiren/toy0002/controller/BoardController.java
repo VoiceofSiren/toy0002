@@ -31,7 +31,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model,
-                       @PageableDefault(size = 3) Pageable pageable,
+                       @PageableDefault(size = 10) Pageable pageable,
                        @RequestParam(required = false, defaultValue = "") String searchText) {
         //Page<BoardDTO> boards = boardService.findAll(pageable);
         Page<BoardPageDTO> boards = boardService.findByTitleOrContent(searchText, searchText, pageable);
@@ -63,8 +63,6 @@ public class BoardController {
         if (bindingResult.hasErrors()) {
             return "board/form";
         } else {
-            //boardService.save(boardDTO);
-            //System.out.println("BoardController.write() => username = " + user.getUsername());
             User user = new User();
             user.setUsername(principal.getName());
             boardService.save(boardDTO, user);

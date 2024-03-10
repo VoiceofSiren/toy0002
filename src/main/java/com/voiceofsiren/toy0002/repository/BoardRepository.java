@@ -29,15 +29,15 @@ public class BoardRepository {
         query.setParameter("title", "%" + title + "%");
         query.setParameter("content", "%" + content + "%");
 
-        Page<BoardPageDTO> boards = new PageImpl<>(
-                query.setFirstResult((int) pageable.getOffset())
-                        .setMaxResults(pageable.getPageSize())
-                        .getResultList(),
-                pageable,
-                query.getResultList().size()
-        );
+        // 쿼리 결과를 한 번만 호출하여 results 변수에 저장
+        List<BoardPageDTO> results = query.setFirstResult((int) pageable.getOffset())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
 
-        return boards;
+        // 쿼리 결과가 비어 있을 경우를 대비하여 size 설정
+        int size = results.isEmpty() ? 0 : results.size();
+
+        return new PageImpl<>(results, pageable, size);
     }
 
 }

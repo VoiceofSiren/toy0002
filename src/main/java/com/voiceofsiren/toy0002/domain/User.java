@@ -30,7 +30,7 @@ public class User {
     private List<UserRole> userRoles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    List<Board> boards = new ArrayList<>();
+    private List<Board> boards = new ArrayList<>();
 
     //== 연관 관계 메서드 ==//
     public void addUserRole(UserRole userRole) {
@@ -46,5 +46,6 @@ public class User {
         this.username = userDTO.getUsername();
         this.password = userDTO.getPassword();
         this.enabled = userDTO.getEnabled();
+
     }
 }

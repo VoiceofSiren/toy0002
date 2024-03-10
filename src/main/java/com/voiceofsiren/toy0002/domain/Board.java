@@ -1,5 +1,6 @@
 package com.voiceofsiren.toy0002.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
 
 import jakarta.persistence.*;
@@ -25,6 +26,7 @@ public class Board {
     @NotNull
     private String content;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
