@@ -1,5 +1,6 @@
 package com.voiceofsiren.toy0002.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.voiceofsiren.toy0002.dto.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +27,15 @@ public class User {
 
     private Boolean enabled;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,  // UserService에서 boards 값을 할당하기 위한 설정
+            orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
     //== 연관 관계 메서드 ==//
@@ -37,6 +43,28 @@ public class User {
         this.userRoles.add(userRole);
         userRole.setUser(this);
     }
+
+    //== 연관 관계 메서드 ==//
+    public void addBoard(Board board) {
+        board.setUser(this);
+        boolean add = true;
+        List<Long> boardIds = new ArrayList<>();
+        for (Board b: this.boards) {
+            boardIds.add(b.getId());
+        }
+        if (boardIds.contains(board.getId())) {
+            for (Board b: this.boards) {
+                if (b.getId() == board.getId()) {
+                    b = board;
+                    add = false;
+                }
+            }
+        }
+        if (add) {
+            this.boards.add(board);
+        }
+    }
+
 
     public User() {
 
@@ -46,6 +74,5 @@ public class User {
         this.username = userDTO.getUsername();
         this.password = userDTO.getPassword();
         this.enabled = userDTO.getEnabled();
-
     }
 }

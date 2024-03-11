@@ -26,6 +26,10 @@ public class UserDTO {
 
     private List<BoardDTO> boards = new ArrayList<>();
 
+    public UserDTO() {
+
+    }
+
     public UserDTO(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -37,6 +41,17 @@ public class UserDTO {
         this.boards = user.getBoards().stream()
                 .map(board -> new BoardDTO(board))
                 .collect(Collectors.toList());
+    }
+
+    public UserDTO(User user, BoardDTO boardDTO) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.enabled = user.getEnabled();
+        this.userRoles = user.getUserRoles().stream()
+                .map(userRole -> new UserRoleDTO(userRole))
+                .collect(Collectors.toList());
+        this.boards.add(boardDTO);
     }
 
 }

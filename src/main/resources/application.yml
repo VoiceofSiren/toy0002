@@ -28,3 +28,5 @@ logging:
       hibernate:
         sql: debug
         type: trace
+    com:
+      voiceofsiren: debug

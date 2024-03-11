@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @Entity
@@ -31,6 +33,13 @@ public class Board {
     @JoinColumn(name = "user_id")
     private User user;
 
+    //== 연관 관계 메서드 ==//
+    public void addUser(User user) {
+        this.setUser(user);
+        user.getBoards().add(this);
+    }
+
+
     public Board() {
 
     }
@@ -42,4 +51,15 @@ public class Board {
         this.user = boardDTO.getUser();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Board board)) return false;
+        return Objects.equals(getId(), board.getId()) && Objects.equals(getTitle(), board.getTitle()) && Objects.equals(getContent(), board.getContent()) && Objects.equals(getUser(), board.getUser());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getContent(), getUser());
+    }
 }

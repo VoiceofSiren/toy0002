@@ -29,6 +29,11 @@ class UserApiController {
     private final UserJpaRepository userJpaRepository;
 
 
+    @GetMapping("/users/{id}") // Done!!
+    public UserDTO one(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+
     @GetMapping("/v1/users")
     public List<User> allV1() {
         List<User> users = userRepository.findAllEntities();
@@ -42,7 +47,7 @@ class UserApiController {
     }
 
 
-    @GetMapping("/v2/users")
+    @GetMapping("/v2/users") // Done!!
     public List<UserDTOv2> allV2() {
         List<UserDTOv2> usersV2 = userService.findAllEntities().stream()
                 .map(user -> new UserDTOv2(user))
@@ -78,28 +83,25 @@ class UserApiController {
     }
 
     @PostMapping("/users")
-    public UserDTO newEmployee(@RequestBody UserDTO userDTO) {
+    public UserDTO newUser(@RequestBody UserDTO userDTO) {
         //return userService.save(userDTO);
         return null;
     }
 
-    @GetMapping("/users/{id}")
-    public UserDTO one(@PathVariable Long id) {
-        return userService.findById(id);
-    }
 
-    /*
-    @PutMapping("/users/{id}")
-    UserDTO replaceEmployee(@RequestBody UserDTO newUserDTO, @PathVariable Long id) {
+
+
+    @PutMapping("/users/{id}") // Done!!
+    public UserDTO replaceUser(@RequestBody UserDTO newUserDTO,
+                               @PathVariable Long id) {
         return userService.replace(newUserDTO, id);
     }
-    */
 
-    /*
-    @DeleteMapping("/users/{id}")
-    void deleteEmployee(@PathVariable Long id) {
+
+
+    @DeleteMapping("/users/{id}") // Done!!
+    void deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
     }
-    */
 
 }

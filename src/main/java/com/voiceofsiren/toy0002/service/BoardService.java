@@ -30,6 +30,17 @@ public class BoardService {
     private final UserJpaRepository userJpaRepository;
 
     @Transactional(readOnly = true)
+    public List<BoardDTO> findAll() {
+        List<Board> boards = boardJpaRepository.findAll();
+        for (Board board: boards) {
+            board.getUser().getUsername();
+        }
+        return boards.stream()
+                .map(board -> new BoardDTO(board))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public Page<BoardDTO> findAll(Pageable pageable) {
         Page<Board> boards = boardJpaRepository.findAll(pageable);
         return convert(boards);
@@ -45,7 +56,7 @@ public class BoardService {
     public BoardDTO save(BoardDTO boardDTO, User user) {
         User foundUser = userJpaRepository.findByUsername(user.getUsername());
         Board newBoard = new Board(boardDTO);
-        newBoard.setUser(foundUser);
+        newBoard.addUser(foundUser);
         Board board = boardJpaRepository.save(newBoard);
         return new BoardDTO(board);
     }

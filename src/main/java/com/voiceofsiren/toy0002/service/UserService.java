@@ -1,8 +1,10 @@
 package com.voiceofsiren.toy0002.service;
 
+import com.voiceofsiren.toy0002.domain.Board;
 import com.voiceofsiren.toy0002.domain.Role;
 import com.voiceofsiren.toy0002.domain.User;
 import com.voiceofsiren.toy0002.domain.UserRole;
+import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.dto.UserDTO;
 import com.voiceofsiren.toy0002.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +38,7 @@ public class UserService {
         userDTO.setEnabled(true);
         User user = convert(userDTO);
 
-        Role role = new Role();
-        role.setName("ROLE_USER");
+        Role role = roleJpaRepository.findByName("ROLE_USER");
 
         UserRole userRole = UserRole.createUserRole(user, role);
         user.addUserRole(userRole);
@@ -66,6 +67,7 @@ public class UserService {
     public List<User> findAllEntities() {
         List<User> users = userRepository.findAllEntities();
         for (User user: users) {
+            // Proxy 강제 초기화
             user.getBoards().stream().forEach(board -> board.getTitle());
             user.getUserRoles().stream().forEach(userRole -> userRole.getId());
         }
@@ -73,7 +75,36 @@ public class UserService {
     }
 
     public UserDTO findById(Long id) {
-        Optional<User> optionalUser = userJpaRepository.findById(id);
-        return optionalUser.map(user -> new UserDTO(user)).get();
+        User user = userJpaRepository.findById(id).get();
+        List<Board> boards = user.getBoards();
+        // Proxy 강제 초기화
+        boards.forEach(board -> board.getTitle());
+        List<UserRole> userRoles = user.getUserRoles();
+        // Proxy 강제 초기화
+        for (UserRole userRole: userRoles) {
+            userRole.getUser().getUsername();
+        }
+        return new UserDTO(user);
+    }
+
+    public UserDTO replace(UserDTO newUserDTO, Long id) {
+        User foundUser = userJpaRepository.findById(id).get();
+        foundUser.getBoards().clear();
+        foundUser.getBoards().addAll(newUserDTO.getBoards().stream()
+                .map(boardDTO -> new Board(boardDTO))
+                .collect(Collectors.toList()));
+        for (BoardDTO boardDTO: newUserDTO.getBoards()) {
+            Board board = new Board(boardDTO);
+            board.setUser(foundUser);
+            foundUser.addBoard(board);
+        }
+        User savedUser = userJpaRepository.save(foundUser);
+        return new UserDTO(savedUser);
+
+    }
+
+    @Transactional(readOnly = false)
+    public void deleteById(Long id) {
+        userJpaRepository.deleteById(id);
     }
 }

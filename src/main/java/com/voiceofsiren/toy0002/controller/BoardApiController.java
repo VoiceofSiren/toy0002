@@ -3,6 +3,8 @@ package com.voiceofsiren.toy0002.controller;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -15,14 +17,12 @@ class BoardApiController {
 
     private final BoardService boardService;
 
-
-    // Aggregate root
-    // tag::get-aggregate-root[]
     @GetMapping("/boards")
     List<BoardDTO> all(@RequestParam(required = false) String title,
-                       @RequestParam(required = false) String content) {
+                       @RequestParam(required = false) String content,
+                       @PageableDefault Pageable pageable) {
         if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
-            // return boardService.findAll();
+            return boardService.findAll();
         } else if (!StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
             return boardService.findByTitle(title);
         } else if (StringUtils.isEmpty(title) && !StringUtils.isEmpty(content)) {
@@ -30,12 +30,10 @@ class BoardApiController {
         } else {
             return boardService.findByTitleOrContent(title, content);
         }
-        return boardService.findByTitleOrContent(title, content);
     }
-    // end::get-aggregate-root[]
 
     @PostMapping("/boards")
-    BoardDTO newEmployee(@RequestBody BoardDTO newEmployee) {
+    BoardDTO newBoard(@RequestBody BoardDTO newEmployee) {
         return boardService.save(newEmployee);
     }
 
