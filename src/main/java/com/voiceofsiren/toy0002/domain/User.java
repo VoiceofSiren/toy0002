@@ -34,7 +34,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,  // UserService에서 boards 값을 할당하기 위한 설정
+            cascade = CascadeType.MERGE,  // UserService에서 boards 값을 할당하기 위한 설정
             orphanRemoval = true)
     private List<Board> boards = new ArrayList<>();
 
@@ -47,22 +47,7 @@ public class User {
     //== 연관 관계 메서드 ==//
     public void addBoard(Board board) {
         board.setUser(this);
-        boolean add = true;
-        List<Long> boardIds = new ArrayList<>();
-        for (Board b: this.boards) {
-            boardIds.add(b.getId());
-        }
-        if (boardIds.contains(board.getId())) {
-            for (Board b: this.boards) {
-                if (b.getId() == board.getId()) {
-                    b = board;
-                    add = false;
-                }
-            }
-        }
-        if (add) {
-            this.boards.add(board);
-        }
+        this.boards.add(board);
     }
 
 

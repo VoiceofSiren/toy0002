@@ -5,6 +5,7 @@ import com.voiceofsiren.toy0002.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -43,12 +44,13 @@ class BoardApiController {
     }
 
     @PutMapping("/boards/{id}")
-    BoardDTO replaceEmployee(@RequestBody BoardDTO newBoardDTO, @PathVariable Long id) {
+    BoardDTO replaceBoard(@RequestBody BoardDTO newBoardDTO, @PathVariable Long id) {
         return boardService.replace(newBoardDTO, id);
     }
 
     @DeleteMapping("/boards/{id}")
-    void deleteEmployee(@PathVariable Long id) {
+    @Secured("ROLE_ADMIN")  // 권한이 맞지 않을 경우: 403 Forbidden Error 발생
+    void deleteBoard(@PathVariable Long id) {
         boardService.deleteById(id);
     }
 }

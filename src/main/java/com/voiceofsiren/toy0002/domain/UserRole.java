@@ -26,7 +26,7 @@ public class UserRole {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.MERGE)
     @JoinColumn(name = "role_id")
     private Role role;
 
