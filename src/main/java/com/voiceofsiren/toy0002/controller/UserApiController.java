@@ -8,6 +8,7 @@ import com.voiceofsiren.toy0002.domain.UserRole;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.dto.UserDTO;
 import com.voiceofsiren.toy0002.dto.UserRoleDTO;
+import com.voiceofsiren.toy0002.mapper.UserMapper;
 import com.voiceofsiren.toy0002.repository.UserJpaRepository;
 import com.voiceofsiren.toy0002.repository.UserRepository;
 import com.voiceofsiren.toy0002.service.UserService;
@@ -27,6 +28,8 @@ import java.util.stream.StreamSupport;
 class UserApiController {
 
     private final UserService userService;
+
+    private final UserMapper userMapper;
 
     @GetMapping("/users/{id}") // Done!!
     public UserDTO one(@PathVariable Long id) {
@@ -50,6 +53,8 @@ class UserApiController {
                     .collect(Collectors.toList());
         } else if (method.equals("queryDslCustom")) {
             users = userService.findByUsernameCustomized(text);
+        } else if (method.equals("mybatis")) {
+            users = userMapper.findUsers(text);
         } else {
             users = userService.findAll();
         }
