@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserJpaRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User> {
+public interface UserJpaRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User>, CustomizedUserRepository {
 
     User findByUsername(String username);
 

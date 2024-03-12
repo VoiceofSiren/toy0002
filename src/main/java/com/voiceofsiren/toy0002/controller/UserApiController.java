@@ -2,6 +2,7 @@ package com.voiceofsiren.toy0002.controller;
 
 import com.querydsl.core.types.Predicate;
 import com.voiceofsiren.toy0002.domain.Board;
+import com.voiceofsiren.toy0002.domain.QUser;
 import com.voiceofsiren.toy0002.domain.User;
 import com.voiceofsiren.toy0002.domain.UserRole;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RequestMapping("/api")
 @RestController
@@ -41,16 +43,13 @@ class UserApiController {
         } else if (method.equals("nativeQuery")) {
             users = userService.findByUsernameNativeQuery(text);
         } else if (method.equals("queryDsl")) {
-//            QCustomer customer = QCustomer.customer;
-//            Customer bob = query.select(customer)
-//                    .from(customer)
-//                    .where(customer.firstName.eq("Bob"))
-//                    .fetchOne();
-//
-//            Predicate predicate = user.firstname.equalsIgnoreCase("dave")
-//                    .and(user.lastname.startsWithIgnoreCase("mathews"));
-//
-//            userService.findAll(predicate);
+            QUser user = QUser.user;
+            Predicate predicate = user.username.contains(text);
+            Iterable<User> userIterable = userService.findAll(predicate);
+            users = StreamSupport.stream(userIterable.spliterator(), false)
+                    .collect(Collectors.toList());
+        } else if (method.equals("queryDslCustom")) {
+            users = userService.findByUsernameCustomized(text);
         } else {
             users = userService.findAll();
         }

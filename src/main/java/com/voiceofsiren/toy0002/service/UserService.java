@@ -75,8 +75,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> findAll(Predicate predicate) {
-        List<User> users = userJpaRepository.findAll();
+    public Iterable<User> findAll(Predicate predicate) {
+        Iterable<User> users = userJpaRepository.findAll(predicate);
         return users;
     }
 
@@ -91,6 +91,12 @@ public class UserService {
         return users;
     }
 
+    @Transactional(readOnly = true)
+    public List<User> findByUsernameCustomized(String username) {
+        return userJpaRepository.findByUsernameCustomized(username);
+    }
+
+    @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         User user = userJpaRepository.findById(id).get();
         List<Board> boards = user.getBoards();
