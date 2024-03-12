@@ -31,6 +31,16 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional(readOnly = true)
+    public List<User> findByUsernameQuery(String text) {
+        return userJpaRepository.findByUsernameQuery(text);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findByUsernameNativeQuery(String text) {
+        return userJpaRepository.findByUsernameNativeQuery(text);
+    }
+
     @Transactional(readOnly = false)
     public void save(UserDTO userDTO) {
         String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
@@ -107,4 +117,7 @@ public class UserService {
     public void deleteById(Long id) {
         userJpaRepository.deleteById(id);
     }
+
+
+
 }

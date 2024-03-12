@@ -25,18 +25,29 @@ class UserApiController {
 
     private final UserService userService;
 
-    private final UserRepository userRepository;
-    private final UserJpaRepository userJpaRepository;
-
-
     @GetMapping("/users/{id}") // Done!!
     public UserDTO one(@PathVariable Long id) {
         return userService.findById(id);
     }
 
+    @GetMapping("/query/users")
+    public List<User> allQuery(@RequestParam(required = false) String method,
+                               @RequestParam(required = false) String text) {
+        List<User> users = null;
+
+        if (method.equals("query")) {
+            users = userService.findByUsernameQuery(text);
+        } else if (method.equals("nativeQuery")) {
+            users = userService.findByUsernameNativeQuery(text);
+        } else {
+            users = userService.findAll();
+        }
+        return users;
+    }
+
     @GetMapping("/v1/users")
     public List<User> allV1() {
-        List<User> users = userRepository.findAllEntities();
+        List<User> users = userService.findAllEntities();
         for (User user: users) {
             List<UserRole> userRoles = user.getUserRoles();
             userRoles.stream().forEach(userRole -> userRole.getRole().getName());

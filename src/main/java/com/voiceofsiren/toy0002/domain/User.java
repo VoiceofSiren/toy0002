@@ -27,6 +27,7 @@ public class User {
 
     private Boolean enabled;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true)

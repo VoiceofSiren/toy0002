@@ -1,12 +1,7 @@
-
-
 let jsButton = document.getElementById("jsButton");
 let id = document.getElementById("bId").value();
 
-console.log(id);
-
 jsButton.addEventListener('click', deleteBoard);
-
 
 function deleteBoard(id) {
     $.ajax({
