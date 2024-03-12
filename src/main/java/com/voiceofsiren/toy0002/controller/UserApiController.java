@@ -1,5 +1,6 @@
 package com.voiceofsiren.toy0002.controller;
 
+import com.querydsl.core.types.Predicate;
 import com.voiceofsiren.toy0002.domain.Board;
 import com.voiceofsiren.toy0002.domain.User;
 import com.voiceofsiren.toy0002.domain.UserRole;
@@ -39,6 +40,17 @@ class UserApiController {
             users = userService.findByUsernameQuery(text);
         } else if (method.equals("nativeQuery")) {
             users = userService.findByUsernameNativeQuery(text);
+        } else if (method.equals("queryDsl")) {
+//            QCustomer customer = QCustomer.customer;
+//            Customer bob = query.select(customer)
+//                    .from(customer)
+//                    .where(customer.firstName.eq("Bob"))
+//                    .fetchOne();
+//
+//            Predicate predicate = user.firstname.equalsIgnoreCase("dave")
+//                    .and(user.lastname.startsWithIgnoreCase("mathews"));
+//
+//            userService.findAll(predicate);
         } else {
             users = userService.findAll();
         }

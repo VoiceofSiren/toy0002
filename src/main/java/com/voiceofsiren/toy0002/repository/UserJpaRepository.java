@@ -3,12 +3,13 @@ package com.voiceofsiren.toy0002.repository;
 import com.voiceofsiren.toy0002.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserJpaRepository extends JpaRepository<User, Long> {
+public interface UserJpaRepository extends JpaRepository<User, Long>, QuerydslPredicateExecutor<User> {
 
     User findByUsername(String username);
 

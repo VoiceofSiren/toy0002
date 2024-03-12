@@ -1,5 +1,6 @@
 package com.voiceofsiren.toy0002.service;
 
+import com.querydsl.core.types.Predicate;
 import com.voiceofsiren.toy0002.domain.Board;
 import com.voiceofsiren.toy0002.domain.Role;
 import com.voiceofsiren.toy0002.domain.User;
@@ -69,6 +70,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
+        List<User> users = userJpaRepository.findAll();
+        return users;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAll(Predicate predicate) {
         List<User> users = userJpaRepository.findAll();
         return users;
     }
