@@ -30,6 +30,8 @@ public class UserService {
 
     private final UserRoleJpaRepository userRoleJpaRepository;
 
+    private final BoardJpaRepository boardJpaRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
@@ -58,6 +60,15 @@ public class UserService {
         userJpaRepository.save(user);
         roleJpaRepository.save(role);
         userRoleJpaRepository.save(userRole);
+
+        //== 사용자 등록 시 가입 인사글 자동 생성 ==//
+        Board board = new Board();
+        board.setTitle("안녕하세요.");
+        board.setContent("반갑습니다.");
+        board.setUser(user);
+        Board savedBoard = boardJpaRepository.save(board);
+        user.getBoards().add(savedBoard);
+        //=====================================//
     }
 
     public User convert(UserDTO userDTO) {
