@@ -5,7 +5,7 @@ spring:
     password: 515608
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-#    database-platform: org.hibernate.dialect.MariaDB113Dialect
+    database-platform: org.hibernate.dialect.MariaDB106Dialect
     hibernate:
       ddl-auto: none
     properties:
