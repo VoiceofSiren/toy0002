@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'com.voiceofsiren'
-version = '1.0.0'
+version = '1.0.1'
 
 java {
 	sourceCompatibility = '17'
@@ -38,6 +38,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'jakarta.validation:jakarta.validation-api'
 	//== [2] QueryDSL 라이브러리==//
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
