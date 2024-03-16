@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.voiceofsiren.toy0002.mapper.UserMapper">
-    <select id="findUsers" resultType="User" resultMap="userIdResultMap">
+    <select id="findUsers" resultType="com.voiceofsiren.toy0002.domain.User" resultMap="userIdResultMap">
         select u.user_id, u.username, u.password, u.enabled
             from User u
             where username like concat('%', #{text}, '%')
