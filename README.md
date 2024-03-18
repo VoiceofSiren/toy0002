@@ -73,6 +73,6 @@
 
 <h3 align="left">5. ER Diagram</h3>
 <p align="left">
-  <img src="images/ER-Diagram.png" alt="ER Diagram">
+  <img src="src/main/resources/static/readme/ER-Diagram.png" alt="ER Diagram">
   
 </p>
