@@ -28,16 +28,24 @@ public class BoardRepository {
         Query query = em.createQuery(queryStr, BoardPageDTO.class);
         query.setParameter("title", "%" + title + "%");
         query.setParameter("content", "%" + content + "%");
+        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        query.setMaxResults(pageable.getPageSize());
 
-        // 쿼리 결과를 한 번만 호출하여 results 변수에 저장
-        List<BoardPageDTO> results = query.setFirstResult((int) pageable.getOffset())
-                .setMaxResults(pageable.getPageSize())
-                .getResultList();
+        List<BoardPageDTO> results = query.getResultList();
+        long total = countTotal(title, content); // 총 레코드 수를 구하는 메서드
 
-        // 쿼리 결과가 비어 있을 경우를 대비하여 size 설정
-        int size = results.isEmpty() ? 0 : results.size();
+        return new PageImpl<>(results, pageable, total);
+    }
 
-        return new PageImpl<>(results, pageable, size);
+    private long countTotal(String title, String content) {
+        String queryStr = "SELECT COUNT(*) FROM Board b "
+                + "WHERE b.title LIKE :title OR b.content LIKE :content";
+
+        Query query = em.createQuery(queryStr);
+        query.setParameter("title", "%" + title + "%");
+        query.setParameter("content", "%" + content + "%");
+
+        return (long) query.getSingleResult();
     }
 
 }
