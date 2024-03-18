@@ -70,3 +70,9 @@
       </ul>
   </ol>
 </p>
+
+<h3 align="left">5. ER Diagram</h3>
+<p align="left">
+  <img src="images/ER-Diagram.png" alt="ER Diagram">
+  
+</p>
