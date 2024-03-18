@@ -22,7 +22,7 @@
 <p align="left">
   <ul>
     <li>Front-end: Bootstrap을 사용하여 간단한 레이아웃을 구현하였습니다.</li>
-    <li>Spring Data JPA, QueryDSL, MyBatis를 이용하여 DBMS로 CRUD 연산을 수행하였습니다.</li>
+    <li>Spring Data JPA, JPQL, MyBatis를 이용하여 DBMS로 CRUD 연산을 수행하였습니다.</li>
     <li>개발 시에는 로컬 DB에 엑세스하였으며, 배포 단계에서는 AWS EC2 인스턴스에서 RDS에 엑세스하였습니다.</li>
   </ul>
 </p>
@@ -51,10 +51,22 @@
         <li>Data Access Layer</li>
           <ol>
             <li>ORM Framework</li>
+              <ul>
+                <li>Spring Data JPA (Repository, Entity)</li>
+                <li>MyBatis (Mapper, SQL)</li>
+              </ul>
             <li>DBMS Connection</li>
+              <ul>
+                <li>MaraDB RDS</li>
+              </ul>
           </ol>
       </ul>
     <li>Support Layer</li>
-      <ul>Security</ul>
+      <ul>
+        <li>Security</li>
+          <ul>
+            <li>Spring Security 6</li>
+          </ul>
+      </ul>
   </ol>
 </p>
