@@ -67,7 +67,6 @@ public class WebSecurityConfig {
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder())
                 .usersByUsernameQuery("select username, password, enabled "
                         + "from user "
                         + "where username = ?")

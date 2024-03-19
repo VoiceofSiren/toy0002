@@ -17,6 +17,8 @@
 <h2 align="left">1. Topic</h2>
 <p align="left">
   JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객체로 묶어서 CRUD 연산을 수행하는 간단한 Spring boot 프로젝트입니다.
+  <a href="http://54.180.82.38:8086/">해당 프로젝트 바로 가기</a>  
+
 </p>
 
 <h2 align="left">2. Summary</h2>
