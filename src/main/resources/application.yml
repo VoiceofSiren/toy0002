@@ -18,7 +18,6 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
-
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.voiceofsiren.toy0002.domain
@@ -29,6 +28,9 @@ mybatis:
 
 server:
   port: 8086
+  servlet:
+    session:
+      timeout: 90m
 
 logging:
   level:

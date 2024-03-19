@@ -35,7 +35,7 @@
                sec:authorize="!isAuthenticated()">
                 Register
             </a>
-            <form class="d-flex" th:action="@{/logout}" method="post"
+            <form class="d-flex" th:action="@{/account/logout}" method="post"
                   sec:authorize="isAuthenticated()">
                 <span class="text-white my-1" sec:authentication="name">사용자</span>
                 <span class="text-white mx-2 my-1" sec:authentication="principal.authorities">권한</span>
