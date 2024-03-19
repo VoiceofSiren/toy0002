@@ -7,14 +7,14 @@ import com.voiceofsiren.toy0002.domain.User;
 import com.voiceofsiren.toy0002.domain.UserRole;
 import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.dto.UserDTO;
+import com.voiceofsiren.toy0002.exception.UsernameExistingException;
 import com.voiceofsiren.toy0002.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +32,7 @@ public class UserService {
 
     private final BoardJpaRepository boardJpaRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<User> findByUsernameQuery(String text) {
@@ -46,6 +46,14 @@ public class UserService {
 
     @Transactional(readOnly = false)
     public void save(UserDTO userDTO) {
+
+        // username 중복 검사
+        String uName = userDTO.getUsername();
+        if (userJpaRepository.existsByUsername(uName)) {
+            throw new UsernameExistingException(uName);
+        }
+
+        // password 암호화
         String encodedPassword = passwordEncoder.encode(userDTO.getPassword());
         userDTO.setPassword(encodedPassword);
         userDTO.setEnabled(true);
@@ -134,14 +142,11 @@ public class UserService {
         }
         User savedUser = userJpaRepository.save(foundUser);
         return new UserDTO(savedUser);
-
     }
 
     @Transactional(readOnly = false)
     public void deleteById(Long id) {
         userJpaRepository.deleteById(id);
     }
-
-
 
 }

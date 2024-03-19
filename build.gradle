@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'com.voiceofsiren'
-version = '1.0.2'
+version = '1.0.5'
 
 java {
 	sourceCompatibility = '17'
