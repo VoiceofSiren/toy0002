@@ -63,11 +63,11 @@ public class WebSecurityConfig {
 
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                //.passwordEncoder(passwordEncoder())
+                .passwordEncoder(bCryptPasswordEncoder())
                 .usersByUsernameQuery("select username, password, enabled "
                         + "from user "
                         + "where username = ?")
