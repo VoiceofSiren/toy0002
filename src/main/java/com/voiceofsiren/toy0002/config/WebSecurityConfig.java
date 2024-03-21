@@ -28,16 +28,17 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+        /*
         http    // CSRF (Cross-Site Request Forgery): 사용자가 원하지 않아도 서버 측으로 위조된 요청을 강제로 보내는 해킹 방법
                 .csrf(AbstractHttpConfigurer::disable);     // 배포 시 enable시켜야 함.
-
+        */
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/account/register","/css/**", "/api/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/account/login", "/account/register","/css/**", "/api/**", "/js/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/account/login")    // login 시 redirect 경로
+                        .loginPage("/account/login")    // login 경로
                         .permitAll()
                 )
                 .logout((logout) -> logout
@@ -46,7 +47,7 @@ public class WebSecurityConfig {
 
         http
                 .sessionManagement((auth) -> auth
-                        .maximumSessions(1)     // 하나의 id로 동시 접속할 수 있는 최대 세션 수를 지정 (다중 로그인 설정)
+                        .maximumSessions(5)     // 하나의 id로 동시 접속할 수 있는 최대 세션 수를 지정 (다중 로그인 설정)
                         .maxSessionsPreventsLogin(true));   // 다중 로그인 허용 개수를 초과하였을 경우
                                                             //      true: 새로운 로그인을 차단
                                                             //      false: 기존의 세션을 하나씩 삭제

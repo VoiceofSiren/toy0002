@@ -11,6 +11,7 @@
 ## Index
 - [Project Overview](#Project-Overview)
 - [Project Description](#Project-Description)
+- [Depolyment](#Deployment)
 - [Problems and Solutions](#Problems-and-Solutions)
 <br/>
 
@@ -149,6 +150,7 @@
 </table>
 
 1. 조인 테이블인 USER_ROLE이 USER와 ROLE 테이블에 대한 외래키를 가지고 있으므로, USER_ROLE의 참조 필드를 연관 관계의 주인으로 지정하였습니다.
+2. 지연 로딩 전략을 사용하여 연관관계에 있는 다른 객체들까지 한꺼번에 조회되는 상황을 방지하였습니다.
 <br/>
 
 #### - API
@@ -171,23 +173,7 @@
 
 #### - Authentication
 - Spring Security 6를 사용하였습니다.
-
-<table>
-  <thead>
-    <tr>
-      <th align="center">@EnableWebSecurity Config 클래스</th>
-      <th align="center">Thymeleaf - Spring Security</th>
-    </tr>
-  <tbody>
-    <tr>
-      <td align="center"><img src="src/main/resources/static/readme/WebSecurityConfig-configureGlobal.png" width="500px;" alt=""/></td>
-      <td align="center">
-        <img src="src/main/resources/static/readme/thymeleaf-spring-security-namespace.png" width="500px;" alt=""/><br>
-        <img src="src/main/resources/static/readme/thymeleaf-authorize-hasRole.png" width="500px;" alt=""/>
-      </td>
-    <tr/>
-  </tbody>
-</table>
+    - Bean으로 등록할 SecurityFilterChain 메서드 내부에서 requestMatchers()를 사용하여 로그인한 사용자의 권한에 따라 접근 경로를 제한합니다.
 <br/>
 
 #### - Authorization
@@ -196,7 +182,7 @@
 <table>
   <thead>
     <tr>
-      <th align="center">@EnableWebSecurity Config 클래스</th>
+      <th align="center">@EnableWebSecurity WebSecurityConfig 클래스</th>
       <th align="center">Thymeleaf - Spring Security</th>
     </tr>
   <tbody>
@@ -209,34 +195,26 @@
     <tr/>
   </tbody>
 </table>
-<br/>
 
 1. 관리자의 권한을 가진 사용자만 게시물을 삭제할 수 있도록 설정하였습니다.
-
-
-+ 인증 (Spring Security 6)
-
-  <table>
-  <thead>
-    <tr>
-      <th align="center">User1의 회원정보 페이지</th>
-      <th align="center">권한 외 요청</th>
-      <th align="center">Log</th>
-    </tr>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/fe5ed579-cf5f-4f72-b6cb-7bdfd5b8cc43" width="400px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/daa040e4-beee-4bb7-8499-e37a04a98ed9" width="400px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/96f6de73-f59e-4f45-a307-b57586af260d" width="400px;" alt=""/></td>
-     <tr/>
-  </tbody>
-  </table>
-
-미인증 사용자의 요청은 회원 로그인 페이지로, 권한이 있는 회원의 요청은 404 오류 페이지를 반환하여 인증을 강화했습니다.<br>
-권한 외 요청이 있을 경우 log4j를 통해 WARN 로그를 남기도록 코드를 작성했습니다.<br>
-
-해결하지 못한 점 : 일부 페이지에서 Interceptor가 적용되지 않는 현상이 있어 향후 개선해보고자 합니다.<br>
 <br/>
+
+## Deployment
+
+### AWS
+- EC2와 RDS를 생성하여 배포하였습니다.
+
+#### - RDS
+- RDS 설정 파일입니다.
+
++ application.yml
+  <img src="src/main/resources/static/readme/rds-application-yml.png" alt="ER Diagram" width=800>
+
+#### - EC2
+- jar 파일을 build하여 실행시킵니다.
+
+  <img src="src/main/resources/static/readme/ec2-gradlew-build.png" alt="ER Diagram" width=800>
+  <img src="src/main/resources/static/readme/ec2-java-jar.png" alt="ER Diagram" width=800>
 
 ## Problems and Solutions
 - a 태그의 href의 경로를 수정하였습니다.
