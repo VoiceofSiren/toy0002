@@ -216,10 +216,14 @@
   <img src="src/main/resources/static/readme/ec2-gradlew-build.png" alt="ER Diagram" width=800>
   <img src="src/main/resources/static/readme/ec2-java-jar.png" alt="ER Diagram" width=800>
 
+#### - Deployment
+- 배포 후의 화면입니다.
+
+  <img src="src/main/resources/static/readme/aws-deployed-web-application.png" alt="ER Diagram" width=800>
+
 ## Problems and Solutions
 - a 태그의 href의 경로를 수정하였습니다.
 - Pagination이 제대로 적용되지 않던 문제를 수정하였습니다.
-- AWS에 배포할 예정입니다.
   <br/>
 
 
