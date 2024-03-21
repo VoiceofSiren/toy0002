@@ -33,7 +33,6 @@ public class BoardController {
     public String list(Model model,
                        @PageableDefault(size = 10) Pageable pageable,
                        @RequestParam(required = false, defaultValue = "") String searchText) {
-        //Page<BoardDTO> boards = boardService.findAll(pageable);
         Page<BoardPageDTO> boards = boardService.findByTitleOrContent(searchText, searchText, pageable);
         int startPage = Math.max(1, boards.getPageable().getPageNumber() - 4);
         int endPage = Math.min(boards.getTotalPages(), boards.getPageable().getPageNumber() + 4);

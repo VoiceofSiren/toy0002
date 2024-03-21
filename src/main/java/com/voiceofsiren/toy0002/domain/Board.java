@@ -48,7 +48,7 @@ public class Board {
         this.id = boardDTO.getId();
         this.title = boardDTO.getTitle();
         this.content = boardDTO.getContent();
-        this.user = boardDTO.getUser();
+        this.user = new User(boardDTO.getUser());
     }
 
     @Override

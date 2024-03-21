@@ -23,7 +23,9 @@ class BoardApiController {
                        @RequestParam(required = false) String content,
                        @PageableDefault Pageable pageable) {
         if(StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
-            return boardService.findAll();
+            List<BoardDTO> boards = boardService.findAll();
+            boards.stream().forEach(boardDTO -> boardDTO.getUser().getUsername());
+            return boards;
         } else if (!StringUtils.isEmpty(title) && StringUtils.isEmpty(content)) {
             return boardService.findByTitle(title);
         } else if (StringUtils.isEmpty(title) && !StringUtils.isEmpty(content)) {
@@ -34,8 +36,8 @@ class BoardApiController {
     }
 
     @PostMapping("/boards")
-    BoardDTO newBoard(@RequestBody BoardDTO newEmployee) {
-        return boardService.save(newEmployee);
+    BoardDTO newBoard(@RequestBody BoardDTO boardDTO) {
+        return boardService.save(boardDTO);
     }
 
     @GetMapping("/boards/{id}")

@@ -1,9 +1,6 @@
 package com.voiceofsiren.toy0002.repository;
 
-import com.voiceofsiren.toy0002.domain.Board;
-import com.voiceofsiren.toy0002.dto.BoardDTO;
 import com.voiceofsiren.toy0002.dto.BoardPageDTO;
-import com.voiceofsiren.toy0002.dto.UserDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;

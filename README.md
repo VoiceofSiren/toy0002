@@ -1,8 +1,9 @@
-<div align="center">
-<h1>Toy Project - Bulletin Board</h1>
+<div>
+<h1 align="center">Toy Project - Bulletin Board</h1>
 <p>
-이 프로젝트는 JPA와 Spring Security를 이용한 간단한 게시판 웹 애플리케이션입니다.<br>
-JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객체로 묶어서 CRUD 연산을 수행하는 간단한 Spring boot 프로젝트입니다.<br>
+&nbsp; - 이 프로젝트는 JPA와 Spring Security를 이용한 간단한 게시판 웹 애플리케이션입니다.<br>
+&nbsp; - JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객체로 묶어서 <br>
+&nbsp;&nbsp;&nbsp; 간단한CRUD 연산을 수행하는 간단한 Spring boot 프로젝트입니다.<br>
 </p>
 </div>
 <br/>
@@ -10,10 +11,8 @@ JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객
 ## Index
 - [Project Overview](#Project-Overview)
 - [Project Description](#Project-Description)
-- [ER Diagram](#ER-Diagram)
-- [Security](#Security)
 - [Problems and Solutions](#Problems-and-Solutions)
-  <br/>
+<br/>
 
 ## Project Overview
 - 프로젝트명: JPA와 Spring Security를 활용한 기본적인 게시판 웹 애플리케이션 <a href="http://54.180.82.38:8086/" style="font-size: 15px">[해당 프로젝트 바로 가기]</a>
@@ -35,10 +34,10 @@ JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객
      <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="20" height="20"/> </a> <span>&nbsp;- EC2 (Ubuntu), RDS (MariaDB)</span><br/>
 
 
-- 팀 멤버:
+- 개발자:
     + 박영무 (BE/FE)  [@VoiceofSiren](https://github.com/VoiceofSiren) <br><br>
       AJAX (jQuery) / DB / Validation / Security / Deployment<br><br>
-      <br/>
+<br/>
 
 ## Project Description
 - Back-end를 중점적으로 설명 드리겠습니다.
@@ -78,7 +77,7 @@ JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객
 ### Front-end
 - Bootstrap을 활용하여 간단한 레이아웃을 구현하였습니다.
 
-+ UX/UI
+#### - UX/UI
 
 <table>
   <thead>
@@ -101,36 +100,75 @@ JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객
 1. Navigation Bar에 홈 화면과 게시물 화면으로 이동할 수 있는 링크를 추가하였습니다.
 2. 현재 접속 중인 페이지에 따라 Navigation Bar의 링크를 활성화/비활성화시키도록 설정하였습니다.<br><br>
 
-+ AJAX
+#### - AJAX
   - 로그인 시 입력한 데이터를 검증합니다.
 <table>
   <thead>
     <tr>
-      <th align="center">OrderDetails</th>
-      <th align="center">Cart</th>
+      <th align="center">유효성 검증 전</th>
+      <th align="center">유효성 검증 후</th>
     </tr>
   <tbody>
     <tr>
-      <td align="center"><img src="src/main/resources/static/readme/sign-in-invalid-id.png" width="460px;" alt=""/></td>
+      <td align="center"><img src="src/main/resources/static/readme/sign-in-invalid-id.png" width="500px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/sing-in-failure.png" width="500px;" alt=""/></td>
     <tr/>
   </tbody>
 </table>
 
-1. Thymeleaf의 ${param.error} 변수를 사용하였습니다.
+1. 유효성 검증을 위해 Thymeleaf의 ${param.error} 변수를 사용하였습니다.
 
 
 ### Back-end
 - Spring Data JPA, JPQL, MyBatis를 이용하여 DBMS로 CRUD 연산을 수행하였습니다.
 - 개발 시에는 로컬 DB에 엑세스하였으며, 배포 단계에서는 AWS EC2 인스턴스에서 RDS에 엑세스하였습니다.
 
-+ ER Diagram
+#### - ER Diagram
 
   <img src="src/main/resources/static/readme/ER-Diagram.png" alt="ER Diagram" width=500>
-
 <br/>
 
-<h2 align="left">6. Security</h2>
+1. USER와 ROLE은 기본적으로 N:M의 연관관계를 가지지만 USER_ROLE이라는 중간 조인 테이블을 설계하여 N:M 연관관계 매핑의 사용을 지양하였습니다.
+
+#### - Entity
+
+<table>
+  <thead>
+    <tr>
+      <th align="center">USER</th>
+      <th align="center">USER_ROLE</th>
+      <th align="center">ROLE</th>
+    </tr>
+  <tbody>
+    <tr>
+      <td align="center"><img src="src/main/resources/static/readme/user-entity-userRoles.png" width="500px;" alt=""/></td>
+      <td align="center"><img src="src/main/resources/static/readme/userRole-entity-user-role.png" width="500px;" alt=""/></td>
+      <td align="center"><img src="src/main/resources/static/readme/role-entity-userRoles.png" width="500px;" alt=""/></td>
+    <tr/>
+  </tbody>
+</table>
+
+1. 조인 테이블인 USER_ROLE이 USER와 ROLE 테이블에 대한 외래키를 가지고 있으므로, USER_ROLE의 참조 필드를 연관 관계의 주인으로 지정하였습니다.
+
+#### - API 개발
+- Entity 객체를 직접 반환하지 않고 별도의 DTO 객체를 반환하는 방식으로 개발하였습니다.
+
+<table>
+  <thead>
+    <tr>
+      <th align="center">게시물 조회 API 요청</th>
+      <th align="center">실행된 SELECT문</th>
+    </tr>
+  <tbody>
+    <tr>
+      <td align="center"><img src="src/main/resources/static/readme/postman-api-boards-result.png" width="500px;" alt=""/></td>
+      <td align="center"><img src="src/main/resources/static/readme/api-boards-select.png" width="500px;" alt=""/></td>
+    <tr/>
+  </tbody>
+</table>
+
+#### - Security
+- Spring Security 6를 사용하였습니다.
 <p align="left">
   <ul>
     <li style="font-size: 20px">Spring Security 6 - WebSecurityConfig 클래스</li>
@@ -158,72 +196,6 @@ JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객
   </ul>
 </p>
 
-
-
-+ 상품 관련
-
-  <table>
-  <thead>
-    <tr>
-      <th align="center">상품 등록（Admin）</th>
-      <th align="center">상품 상세/수정/삭제（Admin）</th>
-      <th align="center">상품 목록 조회（User）</th>
-      <th align="center">상품 상세（User）</th>
-    </tr>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/ed3802b5-4154-4600-bb50-f3b1a623ee7b" width="300px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/d157e335-693b-4d75-97ef-98ba8efe78f5" width="300px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/615c5401-a8ac-428e-ae48-5ef80bd59336" width="300px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/5bada663-7fbd-47e7-8e1f-ea348bff3071" width="300px;" alt=""/></td>
-     <tr/>
-  </tbody>
-  </table>
-
-
-관리자 페이지에서 상품, 사진, 재고 등을 DB, resource 폴더에 등록하고 클라이언트 페이지에서 해당 데이터를 읽는 형태입니다.<br>
-
-+ 주문
-
-  <table>
-  <thead>
-    <tr>
-      <th align="center">회원 주문 페이지</th>
-      <th align="center">회원 주문 페이지</th>
-      <th align="center">회원 주문 페이지</th>
-      <th align="center">회원 주문 페이지</th>
-    </tr>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/c87ca19e-c70c-4eab-abeb-6b3c9467621f" width="300px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/62e3c23d-53e0-407b-821b-d5faf677370e" width="300px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/df9c0645-97ad-400a-8f44-d4d159dd3616" width="300px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/5bada663-7fbd-47e7-8e1f-ea348bff3071" width="300px;" alt=""/></td>
-     <tr/>
-  </tbody>
-  </table>
-
-+ 관리자 페이지
-
-  <table>
-  <thead>
-    <tr>
-      <th align="center">관리자 페이지</th>
-      <th align="center">회원 목록</th>
-      <th align="center">Q&A</th>
-    </tr>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/6313fc23-a60f-43fd-9ab9-dd20bc4e58bd" width="400px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/6326ef40-2862-4ceb-9eac-4c34f761ef54" width="400px;" alt=""/></td>
-      <td align="center"><img src="https://github.com/HyonHyonKOR/team-project/assets/134394081/04ab0a49-fd69-492a-9e0d-e4380a47e0aa" width="400px;" alt=""/></td>
-     <tr/>
-  </tbody>
-  </table>
-
-매출은 보류, 비회원 주문 목록은 아직 버그 문제로 소개하지 못했습니다. 아직 원인을 알 수 없어 추후에 해결하도록 하겠습니다.
-
-
 + 인증 (Spring Security 6)
 
   <table>
@@ -248,17 +220,10 @@ JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객
 해결하지 못한 점 : 일부 페이지에서 Interceptor가 적용되지 않는 현상이 있어 향후 개선해보고자 합니다.<br>
 <br/>
 
-## 리팩토링
-- 일부 페이지에서 Interceptor가 적용되지 않는 문제를 해결하기 위한 대안으로 Spring Security 6를 사용할 예정입니다.
-    - 이에 따라 사용자 별 권한 부여를 위한 필드를 추가할 예정입니다.
+## Problems and Solutions
+- a 태그의 href의 경로를 수정하였습니다.
+- Pagination이 제대로 적용되지 않던 문제를 수정하였습니다.
 - AWS에 배포할 예정입니다.
-- 페이지 처리 버그 개선 예정입니다.
   <br/>
 
-## 참고자료
-- 제품 사진 360장: https://www.coor.kr/
-- 인덱스 페이지 이미지: https://unsplash.com/ko
-- 로고: https://www.figma.com/
-- Kakao Map API, Kakao 주소 API : https://developers.kakao.com/
-- Sweetalert2: https://sweetalert2.github.io/
-- SVG 및 폰트: https://fonts.google.com/
+

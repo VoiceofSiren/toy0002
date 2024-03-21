@@ -20,8 +20,8 @@ public class Role {
 
     private String name;
 
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    @OneToMany( mappedBy = "role",
+            fetch = FetchType.LAZY)
     private List<UserRole> userRoles = new ArrayList<>();
 
     //== 연관 관계 메서드 ==//

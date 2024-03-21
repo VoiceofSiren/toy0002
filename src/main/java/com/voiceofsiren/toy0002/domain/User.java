@@ -29,7 +29,8 @@ public class User {
     private Boolean enabled;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<UserRole> userRoles = new ArrayList<>();

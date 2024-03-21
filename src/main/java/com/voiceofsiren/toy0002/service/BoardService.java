@@ -32,12 +32,10 @@ public class BoardService {
     @Transactional(readOnly = true)
     public List<BoardDTO> findAll() {
         List<Board> boards = boardJpaRepository.findAll();
-        for (Board board: boards) {
-            board.getUser().getUsername();
-        }
-        return boards.stream()
+        List<BoardDTO> boardDTOs = boards.stream()
                 .map(board -> new BoardDTO(board))
                 .collect(Collectors.toList());
+        return boardDTOs;
     }
 
     @Transactional(readOnly = true)
@@ -114,14 +112,7 @@ public class BoardService {
         List<Board> boards = boardJpaRepository.findByTitleOrContent(title,content);
         return convert(boards);
     }
-/*
-    @Transactional(readOnly = true)
-    public Page<BoardDTO> findByTitleOrContent(String title, String content, Pageable pageable) {
-        Page<Board> boards = boardJpaRepository.findByTitleContainingOrContentContaining(title, content, pageable);
-        boards.forEach(Board::getUser);
-        return convert(boards);
-    }
-*/
+
     @Transactional(readOnly = true)
     public Page<BoardPageDTO> findByTitleOrContent(String title, String content, Pageable pageable) {
         Page<BoardPageDTO> boards = boardRepository.showBoardPageList(title, content, pageable);

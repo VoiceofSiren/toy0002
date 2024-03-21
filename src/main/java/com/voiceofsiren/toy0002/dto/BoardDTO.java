@@ -20,30 +20,17 @@ public class BoardDTO {
     @Size(min = 1, message = "최소 1글자를 입력해주세요.")
     private String content;
 
-    @JsonIgnore
-    private User user;
+    private UserDTO user;
 
     public BoardDTO() {
 
-    }
-
-    public BoardDTO(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
     }
 
     public BoardDTO(Board board) {
         this.id = board.getId();
         this.title = board.getTitle();
         this.content = board.getContent();
-        this.user = board.getUser();
+        this.user = new UserDTO(board.getUser());
     }
 
-    public BoardDTO(Board board, User user) {
-        this.id = board.getId();
-        this.title = board.getTitle();
-        this.content = board.getContent();
-        this.user = user;
-    }
 }
