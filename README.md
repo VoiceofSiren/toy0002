@@ -17,8 +17,8 @@
 
 ## Project Overview
 - 프로젝트명: JPA와 Spring Security를 활용한 기본적인 게시판 웹 애플리케이션 <a href="http://54.180.82.38:8086/" style="font-size: 15px">[해당 프로젝트 바로 가기]</a>
-- 프로젝트 기간: 2024.03.03-2024.03.19
-- 프로젝트 기술:
+- 프로젝트 개발 기간: 2024.03.03-2024.03.19
+- 프로젝트 언어 및 개발 도구:
     + Backend<br>
       <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="20" height="20"/> </a> <span>&nbsp;- OpenJDK 17</span><br/>
       <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/mariadb/mariadb-icon.svg" alt="mariadb" width="20" height="20"/> </a> <span>&nbsp;- MariaDB v11.3.2</span><br/>
@@ -32,6 +32,7 @@
      <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="20" height="20"/> </a> <span>&nbsp;- Spring boot v3.2.3</span><br/>
      <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="20" height="20"/> </a> <span>&nbsp;- Postman</span><br/>
      <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="20" height="20"/> </a> <span>&nbsp;- Git</span><br/>
+     <a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/PowerShell_5.0_icon.png" alt="aws" width="20" height="20"/> </a> <span>&nbsp;- Windows PowerShell</span><br/>
      <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="20" height="20"/> </a> <span>&nbsp;- EC2 (Ubuntu), RDS (MariaDB)</span><br/>
 
 
@@ -205,15 +206,27 @@
 - EC2와 RDS를 생성하여 배포하였습니다.
 
 #### - RDS
-- RDS 설정 파일입니다.
+- RDS에 엑세스하기 위한 설정 파일입니다.
 
 + application.yml
   <img src="src/main/resources/static/readme/rds-application-yml.png" alt="ER Diagram" width=800>
 
 #### - EC2
-- jar 파일을 build하여 실행시킵니다.
+- 로컬 PC의 .ssh 디렉터리 내부에 아래와 같은 config 파일을 생성합니다.
+
+```plaintext
+Host AWStest0002
+    HostName ec2-xx-xxx-xx-xx.ap-northeast-2.compute.amazonaws.com
+    User ubuntu
+    IdentityFile ~/.ssh/awsTest0002.pem
+```
+
+- ssh로 EC2 인스턴스에 로그인한 다음 git으로 pull한 Spring boot 프로젝트로 jar 파일을 build합니다.
 
   <img src="src/main/resources/static/readme/ec2-gradlew-build.png" alt="ER Diagram" width=800>
+  
+- build한 파일을 실행시킵니다.
+
   <img src="src/main/resources/static/readme/ec2-java-jar.png" alt="ER Diagram" width=800>
 
 #### - Deployment
@@ -225,5 +238,3 @@
 - a 태그의 href의 경로를 수정하였습니다.
 - Pagination이 제대로 적용되지 않던 문제를 수정하였습니다.
   <br/>
-
-
