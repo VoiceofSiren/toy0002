@@ -125,7 +125,7 @@
 
 #### - ER Diagram
 
-  <img src="src/main/resources/static/readme/ER-Diagram.png" alt="ER Diagram" width=500>
+  <img src="src/main/resources/static/readme/ER-Diagram.png" alt="ER Diagram" width=800>
 <br/>
 
 1. USER와 ROLE은 기본적으로 N:M의 연관관계를 가지지만 USER_ROLE이라는 중간 조인 테이블을 설계하여 N:M 연관관계 매핑의 사용을 지양하였습니다.
@@ -149,8 +149,9 @@
 </table>
 
 1. 조인 테이블인 USER_ROLE이 USER와 ROLE 테이블에 대한 외래키를 가지고 있으므로, USER_ROLE의 참조 필드를 연관 관계의 주인으로 지정하였습니다.
+<br/>
 
-#### - API 개발
+#### - API
 - Entity 객체를 직접 반환하지 않고 별도의 DTO 객체를 반환하는 방식으로 개발하였습니다.
 
 <table>
@@ -166,35 +167,52 @@
     <tr/>
   </tbody>
 </table>
+<br/>
 
-#### - Security
+#### - Authentication
 - Spring Security 6를 사용하였습니다.
-<p align="left">
-  <ul>
-    <li style="font-size: 20px">Spring Security 6 - WebSecurityConfig 클래스</li>
-      <ol>
-        <li style="list-style-type: decimal">SecurityFilterChain()</li>
-          <ol>
-            <li style="list-style-type: lower-roman">authorizeHttpRequests()</li>
-              <ol style="list-style-type: circle">
-                <li>로그인 여부에 따라 특정 경로에 대한 접근 권한을 부여합니다.</li>
-              </ol>
-            <li style="list-style-type: lower-roman">sessionManagement()</li>
-              <ol style="list-style-type: circle">
-                <li>세션과 관련하여 다중 로그인을 설정합니다.</li>
-                <li>세션 고정 공격으로부터 보호하도록 설정합니다.</li>
-              </ol>
-          </ol>
-    <li style="list-style-type: decimal">bCryptPasswordEncoder()</li>
-      <ol>
-        <li style="list-style-type: lower-roman">new BCryptPasswordEncoder()</li>
-          <ol style="list-style-type: circle">
-            <li>단방향 암호화 해시 함수로서 비밀번호를 암호화합니다.</li>
-            <li>Bean으로 등록된 해당 객체를 UserService에 주입하여 회원가입 시 호출하여 비밀번호를 암호화합니다.</li>
-          </ol>
-      </ol>
-  </ul>
-</p>
+
+<table>
+  <thead>
+    <tr>
+      <th align="center">@EnableWebSecurity Config 클래스</th>
+      <th align="center">Thymeleaf - Spring Security</th>
+    </tr>
+  <tbody>
+    <tr>
+      <td align="center"><img src="src/main/resources/static/readme/WebSecurityConfig-configureGlobal.png" width="500px;" alt=""/></td>
+      <td align="center">
+        <img src="src/main/resources/static/readme/thymeleaf-spring-security-namespace.png" width="500px;" alt=""/><br>
+        <img src="src/main/resources/static/readme/thymeleaf-authorize-hasRole.png" width="500px;" alt=""/>
+      </td>
+    <tr/>
+  </tbody>
+</table>
+<br/>
+
+#### - Authorization
+- Spring Security 6를 사용하였습니다.
+
+<table>
+  <thead>
+    <tr>
+      <th align="center">@EnableWebSecurity Config 클래스</th>
+      <th align="center">Thymeleaf - Spring Security</th>
+    </tr>
+  <tbody>
+    <tr>
+      <td align="center"><img src="src/main/resources/static/readme/WebSecurityConfig-configureGlobal.png" width="500px;" alt=""/></td>
+      <td align="center">
+        <img src="src/main/resources/static/readme/thymeleaf-spring-security-namespace.png" width="500px;" alt=""/><br>
+        <img src="src/main/resources/static/readme/thymeleaf-authorize-hasRole.png" width="500px;" alt=""/>
+      </td>
+    <tr/>
+  </tbody>
+</table>
+<br/>
+
+1. 관리자의 권한을 가진 사용자만 게시물을 삭제할 수 있도록 설정하였습니다.
+
 
 + 인증 (Spring Security 6)
 

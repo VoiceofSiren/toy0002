@@ -28,10 +28,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        /*
         http    // CSRF (Cross-Site Request Forgery): 사용자가 원하지 않아도 서버 측으로 위조된 요청을 강제로 보내는 해킹 방법
                 .csrf(AbstractHttpConfigurer::disable);     // 배포 시 enable시켜야 함.
-        */
 
         http
                 .authorizeHttpRequests((requests) -> requests
@@ -69,10 +67,10 @@ public class WebSecurityConfig {
 
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, enabled "
+                .usersByUsernameQuery("select username, password, enabled " // username을 통해 user를 찾기 위한 query
                         + "from user "
                         + "where username = ?")
-                .authoritiesByUsernameQuery("select u.username, r.name "
+                .authoritiesByUsernameQuery("select u.username, r.name "    // username을 통해 role을 찾기 위한 query
                         + "from user_role ur "
                         + "inner join user u on ur.user_id = u.user_id "
                         + "inner join role r on ur.role_id = r.role_id "
