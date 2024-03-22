@@ -13,6 +13,7 @@
 - [Project Description](#Project-Description)
 - [Depolyment](#Deployment)
 - [Problems and Solutions](#Problems-and-Solutions)
+- [Reference](#Reference)
 <br/>
 
 ## Project Overview
@@ -233,8 +234,26 @@ Host AWStest0002
 - 배포 후의 화면입니다.
 
   <img src="src/main/resources/static/readme/aws-deployed-web-application.png" alt="ER Diagram" width=800>
+<br/>
 
 ## Problems and Solutions
-- a 태그의 href의 경로를 수정하였습니다.
-- Pagination이 제대로 적용되지 않던 문제를 수정하였습니다.
+### Mapping Entity
+  - JPA에서는 Entity의 필드명과 실제 DB에 저장되어 있는 테이블의 칼럼명이 다른 경우 @Column(name="...")을 이용하여 처리할 수 있지만, MyBatis의 경우에는 그렇지 않았습니다.
+  - MyBatis를 사용할 때는 \<resultMap\>을 이용하여 해결하였습니다.
   <br/>
+
+### API
+  - 게시물과 연관 관계에 있는 사용자(작성자)의 정보까지 JOIN하여 조회할 경우 User Entity 자체가 조회되지 않는 에러가 발생하였습니다.
+  - 원하는 필드만 조회할 수 있도록 User DTO 객체를 만들어 조회하는 방식으로 해결하였습니다.
+
+### DB
++ SQLNonTransientConnectionException
+  - 배포 단계에서 발생한 에러이며, Local DB로 엑세스되지 않는 에러입니다.
+  - 권한 설정, 원격 IP 설정 등을 시도해봤지만 해결되지 않았습니다.
+  - RDS를 생성하여 엑세스하는 방식으로 해결하였습니다.
+   <img src="src/main/resources/static/readme/SQLNonTransientConnectionException.png" alt="ER Diagram" width=800>
+<br/>
+
+## Reference
+#### - Spring Security 6: https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
+#### - SSH config 관련: https://donggu1105.tistory.com/168
