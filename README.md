@@ -1,10 +1,10 @@
 <div>
-<h1 align="center">Toy Project - Bulletin Board</h1>
-<p>
-&nbsp; - 이 프로젝트는 JPA와 Spring Security를 이용한 간단한 게시판 웹 애플리케이션입니다.<br>
-&nbsp; - JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객체로 묶어서 <br>
-&nbsp;&nbsp;&nbsp; 간단한CRUD 연산을 수행하는 간단한 Spring boot 프로젝트입니다.<br>
-</p>
+    <h1 align="center">Toy Project - Bulletin Board</h1>
+    <p>
+    &nbsp; - 이 프로젝트는 JPA와 Spring Security를 이용한 간단한 게시판 웹 애플리케이션입니다.<br>
+    &nbsp; - JPA를 사용하여 연관 관계에 있는 여러 테이블의 데이터를 객체로 묶어서 <br>
+    &nbsp;&nbsp;&nbsp; 간단한CRUD 연산을 수행하는 간단한 Spring boot 프로젝트입니다.<br>
+    </p>
 </div>
 <br/>
 
@@ -38,8 +38,8 @@
 
 
 - 개발자:
-    + 박영무 (BE/FE)  [@VoiceofSiren](https://github.com/VoiceofSiren) <br><br>
-      AJAX (jQuery) / DB / Validation / Security / Deployment<br><br>
+    + 박영무 ([@VoiceofSiren](https://github.com/VoiceofSiren))   
+      AJAX (jQuery) / DB / Validation / Security / Deployment
 <br/>
 
 ## Project Description
@@ -255,5 +255,8 @@ Host AWStest0002
 <br/>
 
 ## Reference
+#### - Bootstrap: https://getbootstrap.com/docs/5.1/examples/
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://getbootstrap.com/docs/5.1/components/navbar/
+#### - QueryDSL: https://assets.velcdn.com/@minu1117/QueryDsl-SpringBoot-3.x-gradle-%EC%84%A4%EC%A0%95
 #### - Spring Security 6: https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
-#### - SSH config 관련: https://donggu1105.tistory.com/168
+#### - SSH config: https://donggu1105.tistory.com/168
