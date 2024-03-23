@@ -204,16 +204,16 @@
 ## Deployment
 
 ### AWS
-- EC2와 RDS를 생성하여 배포하였습니다.
+- EC2 인스턴스와 RDS DB를 생성하여 배포하였습니다.
 
 #### - RDS
-- RDS에 엑세스하기 위한 설정 파일입니다.
+- RDS DB에 엑세스하기 위한 설정 파일입니다.
 
 + application.yml
   <img src="src/main/resources/static/readme/rds-application-yml.png" alt="ER Diagram" width=800>
 
 #### - EC2
-- 로컬 PC의 .ssh 디렉터리 내부에 아래와 같은 config 파일을 생성합니다.
+- Local PC의 /.ssh 디렉터리 내부에 아래와 같은 config 파일을 생성합니다.
 
 ```plaintext
 Host AWStest0002
@@ -222,11 +222,11 @@ Host AWStest0002
     IdentityFile ~/.ssh/awsTest0002.pem
 ```
 
-- ssh로 EC2 인스턴스에 로그인한 다음 git으로 pull한 Spring boot 프로젝트로 jar 파일을 build합니다.
+- EC2 인스턴스에 SSH를 이용하여 원격으로 로그인한 다음 git 디렉터리로 이동하여 Spring boot 프로젝트로 .jar 파일을 build합니다.
 
   <img src="src/main/resources/static/readme/ec2-gradlew-build.png" alt="ER Diagram" width=800>
   
-- build한 파일을 실행시킵니다.
+- build한 .jar 파일을 실행시킵니다.
 
   <img src="src/main/resources/static/readme/ec2-java-jar.png" alt="ER Diagram" width=800>
 
