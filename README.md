@@ -151,7 +151,7 @@
   </tbody>
 </table>
 
-1. 조인 테이블인 USER_ROLE이 USER와 ROLE 테이블에 대한 외래키를 가지고 있으므로, USER_ROLE의 참조 필드를 연관 관계의 주인으로 지정하였습니다.
+1. 조인 테이블인 USER_ROLE이 USER와 ROLE 테이블에 대한 외래키를 가지고 있으므로, USER_ROLE의 참조 필드인 user와 role을 연관 관계의 주인으로 지정하였습니다.
 2. 지연 로딩 전략을 사용하여 연관관계에 있는 다른 객체들까지 한꺼번에 조회되는 상황을 방지하였습니다.
 <br/>
 
@@ -243,20 +243,24 @@ Host AWStest0002
   <br/>
 
 ### API
-  - 게시물과 연관 관계에 있는 사용자(작성자)의 정보까지 JOIN하여 조회할 경우 User Entity 자체가 조회되지 않는 에러가 발생하였습니다.
+  - 게시물과 연관 관계에 있는 사용자(작성자)의 정보까지 JOIN하여 조회하는 API에서 User Entity 자체가 조회되지 않는 에러가 발생하였습니다.
   - 원하는 필드만 조회할 수 있도록 User DTO 객체를 만들어 조회하는 방식으로 해결하였습니다.
 
 ### DB
 + SQLNonTransientConnectionException
   - 배포 단계에서 발생한 에러이며, Local DB로 엑세스되지 않는 에러입니다.
   - 권한 설정, 원격 IP 설정 등을 시도해봤지만 해결되지 않았습니다.
-  - RDS를 생성하여 엑세스하는 방식으로 해결하였습니다.
+  - RDS DB를 생성하여 엑세스하는 방식으로 해결하였습니다.
    <img src="src/main/resources/static/readme/SQLNonTransientConnectionException.png" alt="ER Diagram" width=800>
 <br/>
 
 ## Reference
-#### - Bootstrap: https://getbootstrap.com/docs/5.1/examples/
-#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://getbootstrap.com/docs/5.1/components/navbar/
-#### - QueryDSL: https://assets.velcdn.com/@minu1117/QueryDsl-SpringBoot-3.x-gradle-%EC%84%A4%EC%A0%95
-#### - Spring Security 6: https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
-#### - SSH config: https://donggu1105.tistory.com/168
+#### - Bootstrap: 
+#### https://getbootstrap.com/docs/5.1/examples/
+#### https://getbootstrap.com/docs/5.1/components/navbar/
+#### - QueryDSL: 
+#### https://assets.velcdn.com/@minu1117/QueryDsl-SpringBoot-3.x-gradle-%EC%84%A4%EC%A0%95
+#### - Spring Security 6: 
+#### https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter
+#### - SSH config: 
+#### https://donggu1105.tistory.com/168
