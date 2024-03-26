@@ -27,6 +27,7 @@
     + Frontend<br>
       <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="20" height="20"/> </a> <span>&nbsp;- Bootstrap v5.1.3</span><br/>
       <a href="https://jquery.com/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/jquery-4.svg" alt="bootstrap" width="20" height="20"/> </a> <span>&nbsp;- jQuery v3.7.1</span><br/>
+      <a href="https://www.thymeleaf.org/download.html" target="_blank" rel="noreferrer"> <img src="https://www.thymeleaf.org/images/thymeleaf.png" alt="bootstrap" width="20" height="20"/> </a> <span>&nbsp;- Thymeleaf 3.1.2.RELEASE</span><br/>  
 
   + Environment<br>
      <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noreferrer"><img src="https://blog.jetbrains.com/wp-content/uploads/2019/01/idea_icon.svg" alt="spring" width="20" height="20"/> </a> <span>&nbsp;- IntelliJ IDEA Ultimate 2023.2.3</span><br/></a>
