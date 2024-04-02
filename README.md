@@ -104,7 +104,7 @@
 1. Navigation Bar에 홈 화면과 게시물 화면으로 이동할 수 있는 링크를 추가하였습니다.
 2. 현재 접속 중인 페이지에 따라 Navigation Bar의 링크를 활성화/비활성화시키도록 설정하였습니다.<br><br>
 
-#### - AJAX
+#### - Validation
   - 로그인 시 입력한 데이터를 검증합니다.
 <table>
   <thead>
