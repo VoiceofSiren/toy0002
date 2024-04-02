@@ -18,13 +18,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.security.Principal;
 
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardController implements WebMvcConfigurer {
 
     private final BoardService boardService;
     private final BoardValidator boardValidator;
@@ -55,7 +56,7 @@ public class BoardController {
     }
 
     @PostMapping("/form")
-    public String write(@ModelAttribute @Valid BoardDTO boardDTO,
+    public String write(@Valid BoardDTO boardDTO,
                         Principal principal,
                         BindingResult bindingResult) {
         boardValidator.validate(boardDTO, bindingResult);
@@ -68,5 +69,4 @@ public class BoardController {
         }
         return "redirect:/board/list";
     }
-
 }

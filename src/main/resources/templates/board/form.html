@@ -17,10 +17,10 @@
 
 <div class="container">
     <h2>게시판</h2>
-    <form method="post" th:action="@{/board/form}" action="#" th:object="${boardDTO}"
+    <form method="post" th:action="@{/board/form}" action="/board/form" th:object="${boardDTO}"
           class="row g-3 needs-validation" novalidate>
         <input type="hidden" th:field="*{id}" id="bId">
-        <input type="hidden" th:name="username" th:value="${#authentication.name}" />
+        <input type="hidden" th:name="username" name="username" th:value="${#authentication.name}" />
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
             <input type="text" class="form-control" id="title" placeholder="제목 입력" required

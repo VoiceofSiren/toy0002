@@ -20,7 +20,8 @@ public class BoardRepository {
     public Page<BoardPageDTO> showBoardPageList(String title, String content, Pageable pageable) {
         String queryStr = "SELECT new com.voiceofsiren.toy0002.dto.BoardPageDTO(b.id, b.title, u.username) FROM Board b "
                 + "left JOIN User u on b.user.id = u.id "
-                + "WHERE b.title LIKE :title OR b.content LIKE :content";
+                + "WHERE b.title LIKE :title OR b.content LIKE :content "
+                + "ORDER BY b.id desc ";
 
         Query query = em.createQuery(queryStr, BoardPageDTO.class);
         query.setParameter("title", "%" + title + "%");
