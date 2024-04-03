@@ -60,18 +60,17 @@
         <li>Service Layer</li>
       </ul>
     <li style="font-size: 20px">Data Access Layer</li>
-          <ol>
-            <li>ORM Framework</li>
-              <ul>
-                <li>Spring Data JPA (Repository, Entity)</li>
-                <li>MyBatis (Mapper, SQL)</li>
-              </ul>
-            <li>DBMS Connection</li>
-              <ul>
-                <li>MaraDB (Local DB for Development / RDS for Deployment)</li>
-              </ul>
-          </ol>
-      </ul>
+      <ol>
+        <li>ORM Framework</li>
+          <ul>
+            <li>Spring Data JPA (Repository, Entity)</li>
+            <li>MyBatis (Mapper, SQL)</li>
+          </ul>
+        <li>DBMS Connection</li>
+          <ul>
+            <li>MaraDB (Local DB for Development / RDS for Deployment)</li>
+          </ul>
+      </ol>
   </ol>
 </p>
 <br/>
