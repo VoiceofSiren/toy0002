@@ -46,7 +46,7 @@
 ## Project Description
 - Back-end를 중점적으로 설명 드리겠습니다.
 
-### Architecture
+### S/W Architecture
 - 3-Tier 아키텍처를 사용하였습니다.
 
 <p align="left">
