@@ -12,7 +12,7 @@
 - [Project Overview](#Project-Overview)
 - [Project Description](#Project-Description)
 - [Depolyment](#Deployment)
-- [Problems and Solutions](#Problems-and-Solutions)
+- [Trouble Shooting](#Trouble-Shooting)
 - [Reference](#Reference)
 <br/>
 
@@ -236,7 +236,7 @@ Host AWStest0002
   <img src="src/main/resources/static/readme/aws-deployed-web-application.png" alt="ER Diagram" width=800>
 <br/>
 
-## Problems and Solutions
+## Trouble Shooting
 ### Mapping Entity
   - JPA에서는 Entity의 필드명과 실제 DB에 저장되어 있는 테이블의 칼럼명이 다른 경우 @Column(name="...")을 이용하여 처리할 수 있지만, MyBatis의 경우에는 그렇지 않았습니다.
   - MyBatis를 사용할 때는 \<resultMap\>을 이용하여 해결하였습니다.
