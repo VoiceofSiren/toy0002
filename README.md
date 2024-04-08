@@ -11,7 +11,7 @@
 ## Index
 - [Project Overview](#Project-Overview)
 - [Project Description](#Project-Description)
-- [Depolyment](#Deployment)
+- [Deployment](#Deployment)
 - [Trouble Shooting](#Trouble-Shooting)
 - [Reference](#Reference)
 <br/>
@@ -96,7 +96,7 @@
       <td align="center"><img src="src/main/resources/static/readme/sign-in.png" width="300px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/board-list.png" width="300px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/board-form.png" width="300px;" alt=""/></td>
-     <tr/>
+     </tr>
   </tbody>
 </table>
 
@@ -115,7 +115,7 @@
     <tr>
       <td align="center"><img src="src/main/resources/static/readme/sign-in-invalid-id.png" width="500px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/sing-in-failure.png" width="500px;" alt=""/></td>
-    <tr/>
+    </tr>
   </tbody>
 </table>
 
@@ -147,7 +147,7 @@
       <td align="center"><img src="src/main/resources/static/readme/user-entity-userRoles.png" width="500px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/userRole-entity-user-role.png" width="500px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/role-entity-userRoles.png" width="500px;" alt=""/></td>
-    <tr/>
+    </tr>
   </tbody>
 </table>
 
@@ -168,7 +168,7 @@
     <tr>
       <td align="center"><img src="src/main/resources/static/readme/postman-api-boards-result.png" width="500px;" alt=""/></td>
       <td align="center"><img src="src/main/resources/static/readme/api-boards-select.png" width="500px;" alt=""/></td>
-    <tr/>
+    </tr>
   </tbody>
 </table>
 <br/>
@@ -194,7 +194,7 @@
         <img src="src/main/resources/static/readme/thymeleaf-spring-security-namespace.png" width="500px;" alt=""/><br>
         <img src="src/main/resources/static/readme/thymeleaf-authorize-hasRole.png" width="500px;" alt=""/>
       </td>
-    <tr/>
+    </tr>
   </tbody>
 </table>
 
@@ -237,7 +237,7 @@ Host AWStest0002
 <br/>
 
 ## Trouble Shooting
-### Mapping Entity
+### Mapping Table
   - JPA에서는 Entity의 필드명과 실제 DB에 저장되어 있는 테이블의 칼럼명이 다른 경우 @Column(name="...")을 이용하여 처리할 수 있지만, MyBatis의 경우에는 그렇지 않았습니다.
   - MyBatis를 사용할 때는 \<resultMap\>을 이용하여 해결하였습니다.
   <br/>
